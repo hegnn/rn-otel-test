@@ -5,6 +5,7 @@ import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "
 import { useStores } from "../models"
 import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
+import axios from "axios"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
@@ -33,6 +34,20 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
   }, [])
 
   const error = isSubmitted ? validationError : ""
+
+  async function testRequest() {
+    const response = await fetch("https://jsonplaceholder.typicode.com/todos/1").then((res) =>
+      res.json(),
+    )
+    console.log("response from fetch: ", response)
+
+    // const responseAxios = await axios.get("https://jsonplaceholder.typicode.com/todos/1")
+    // console.log("response from axios: ", responseAxios.data)
+  }
+
+  useEffect(() => {
+    testRequest()
+  }, [])
 
   function login() {
     setIsSubmitted(true)
@@ -111,7 +126,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         tx="loginScreen.tapToLogIn"
         style={$tapButton}
         preset="reversed"
-        onPress={login}
+        onPress={testRequest}
       />
     </Screen>
   )
