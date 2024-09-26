@@ -127,7 +127,7 @@ export default observer(function Login(_props) {
         tx="loginScreen.tapToLogIn"
         style={$tapButton}
         preset="reversed"
-        onPress={login}
+        onPress={testRequest}
       />
     </Screen>
   )
