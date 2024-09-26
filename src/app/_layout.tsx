@@ -3,6 +3,7 @@ import { ViewStyle } from "react-native"
 import { Slot, SplashScreen } from "expo-router"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { useInitialRootStore } from "src/models"
+import { useTracer } from "src/hooks/useTracer"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -18,8 +19,9 @@ export { ErrorBoundary } from "src/components/ErrorBoundary/ErrorBoundary"
 export default function Root() {
   // Wait for stores to load and render our layout inside of it so we have access
   // to auth info etc
+  const { loaded } = useTracer()
   const { rehydrated } = useInitialRootStore()
-  if (!rehydrated) {
+  if (!rehydrated || !loaded) {
     return null
   }
 

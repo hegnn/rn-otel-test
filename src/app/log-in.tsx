@@ -1,3 +1,4 @@
+import axios from "axios"
 import { router } from "expo-router"
 import { observer } from "mobx-react-lite"
 import React, { ComponentType, useEffect, useMemo, useRef, useState } from "react"
@@ -31,6 +32,20 @@ export default observer(function Login(_props) {
   }, [])
 
   const error = isSubmitted ? validationError : ""
+
+  async function testRequest() {
+    const response = await fetch("https://jsonplaceholder.typicode.com/todos/1").then((res) =>
+      res.json(),
+    )
+    console.log("response from fetch: ", response)
+
+    // const responseAxios = await axios.get("https://jsonplaceholder.typicode.com/todos/1")
+    // console.log("response from axios: ", responseAxios.data)
+  }
+
+  useEffect(() => {
+    testRequest()
+  }, [])
 
   function login() {
     setIsSubmitted(true)
